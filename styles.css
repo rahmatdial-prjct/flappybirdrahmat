@@ -1,0 +1,400 @@
+/* ===================================
+   FLAPPY BIRD - STYLES
+   =================================== */
+
+/* CSS Variables for easy theming */
+:root {
+    --bg-color: #70c5ce;           /* Sky blue background */
+    --ground-color: #ded895;       /* Ground color */
+    --pipe-color: #74bf2e;         /* Pipe green */
+    --pipe-border-color: #55802d;  /* Pipe border */
+    --bird-color: #ffd800;         /* Default bird yellow */
+    --score-color: #fff;           /* Score text color */
+    --dark-bg: #1a1a2e;            /* Dark background */
+    --accent-color: #00ffaa;       /* Button accent */
+    --border-color: #3c0080;       /* Container border */
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--dark-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+/* Game Title */
+.game-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 4px 4px 0 #800080;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .game-title {
+        font-size: 3rem;
+    }
+}
+
+/* Game Container */
+.game-container {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1.6;
+    background-color: var(--bg-color);
+    border: 8px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Ensure container doesn't exceed viewport height */
+@media (max-height: 800px) {
+    .game-container {
+        max-width: min(400px, calc((100vh - 200px) * 0.625));
+    }
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        max-width: min(90vw, calc((100vh - 250px) * 0.625));
+    }
+}
+
+@media (max-height: 700px) {
+    .game-container {
+        max-width: min(400px, calc((100vh - 180px) * 0.625));
+    }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .game-container {
+        max-width: min(350px, calc((100vh - 120px) * 0.625));
+    }
+}
+
+/* Game Canvas */
+#gameCanvas {
+    display: block;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Ground Element */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12.5%; /* 80px out of 640px = 12.5% */
+    background-color: var(--ground-color);
+    border-top: 4px solid var(--pipe-border-color);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Score Display */
+.score-display {
+    position: absolute;
+    top: 3%; /* 20px out of 640px ≈ 3% */
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--score-color);
+    text-shadow: 4px 4px 0 #000;
+    z-index: 15;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Overlay Text (Start, Game Over, Skins) */
+.overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--score-color);
+    z-index: 20;
+    user-select: none;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.overlay-text.hidden {
+    display: none;
+}
+
+/* Game Buttons */
+.game-button {
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+    padding: 12px 24px;
+    margin-top: 15px;
+    border: 4px solid var(--dark-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Press Start 2P', cursive;
+    box-shadow: 6px 6px 0 var(--dark-bg);
+    transition: all 0.1s ease-in-out;
+    user-select: none;
+}
+
+.game-button:hover {
+    background-color: #00d48f;
+    transform: translateY(-2px);
+}
+
+.game-button:active {
+    box-shadow: 2px 2px 0 var(--dark-bg);
+    transform: translate(4px, 4px);
+}
+
+/* Skins Container */
+.skins-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Individual Skin Card */
+.skin-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    position: relative;
+}
+
+.skin-card:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.skin-card.selected {
+    border-color: var(--accent-color);
+    background-color: rgba(0, 255, 170, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 170, 0.5);
+}
+
+.skin-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.7);
+}
+
+.skin-card.locked:hover {
+    transform: none;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Skin Preview (Bird) */
+.skin-preview {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+/* Skin Name */
+.skin-name {
+    font-size: 0.7rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Skin Unlock Info */
+.skin-unlock {
+    font-size: 0.5rem;
+    color: #ffcc00;
+    text-align: center;
+}
+
+/* Lock Icon */
+.lock-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Instructions */
+.instructions {
+    font-family: 'Press Start 2P', cursive;
+    max-width: 400px;
+}
+
+/* Animations */
+.animate-pulse-slow {
+    animation: pulse-slow 3s infinite;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.5; 
+    }
+}
+
+/* Scrollbar Styling for Skins Container */
+.skins-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.skins-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.skins-container::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+.skins-container::-webkit-scrollbar-thumb:hover {
+    background: #00d48f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .score-display {
+        font-size: 1.5rem;
+    }
+
+    .overlay-text {
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+
+    .overlay-text p {
+        margin-bottom: 0.5rem;
+    }
+
+    .game-button {
+        font-size: 0.75rem;
+        padding: 10px 18px;
+        margin-top: 10px;
+    }
+
+    .skins-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-height: 300px;
+    }
+
+    .skin-card {
+        min-height: 100px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .score-display {
+        font-size: 1.3rem;
+    }
+
+    .overlay-text {
+        font-size: 0.7rem;
+    }
+
+    .game-button {
+        font-size: 0.65rem;
+        padding: 8px 16px;
+    }
+
+    .ground {
+        height: 60px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .game-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .game-container {
+        max-height: calc(100vh - 100px);
+    }
+
+    .overlay-text {
+        font-size: 0.7rem;
+        padding: 10px;
+    }
+
+    .game-button {
+        font-size: 0.65rem;
+        padding: 6px 12px;
+        margin-top: 5px;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Performance Optimizations */
+canvas {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+

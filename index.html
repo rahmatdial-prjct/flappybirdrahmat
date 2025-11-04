@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Flappy Bird - Classic Game</title>
+    
+    <!-- Tailwind CSS for layout utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Preload Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Audio Elements (preload="none" prevents errors when files are missing) -->
+    <audio id="flapSound" preload="none">
+        <source src="assets/sounds/flap.mp3" type="audio/mpeg">
+        <source src="assets/sounds/flap.ogg" type="audio/ogg">
+    </audio>
+    <audio id="scoreSound" preload="none">
+        <source src="assets/sounds/score.mp3" type="audio/mpeg">
+        <source src="assets/sounds/score.ogg" type="audio/ogg">
+    </audio>
+    <audio id="hitSound" preload="none">
+        <source src="assets/sounds/hit.mp3" type="audio/mpeg">
+        <source src="assets/sounds/hit.ogg" type="audio/ogg">
+    </audio>
+    <audio id="bgMusic" loop preload="none">
+        <source src="assets/sounds/background.mp3" type="audio/mpeg">
+        <source src="assets/sounds/background.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- Main Container -->
+    <div class="flex flex-col items-center">
+        <!-- Game Title -->
+        <h1 class="game-title">
+            FLAPPY BIRD
+        </h1>
+        
+        <!-- Game Container -->
+        <div class="game-container">
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Score Display -->
+            <div id="scoreDisplay" class="score-display">0</div>
+            
+            <!-- Ground Element -->
+            <div class="ground"></div>
+
+            <!-- Start Screen Overlay -->
+            <div id="startOverlay" class="overlay-text">
+                <p class="text-2xl mb-4">CLICK TO FLY</p>
+                <p class="text-base mb-6 text-yellow-300">Press [SPACE] or Click Screen</p>
+                <button id="startButton" class="game-button">
+                    START GAME
+                </button>
+                <button id="skinsButton" class="game-button mt-4">
+                    SKINS
+                </button>
+                <button id="soundToggle" class="game-button mt-4 text-sm">
+                    🔊 SOUND: ON
+                </button>
+            </div>
+
+            <!-- Game Over Overlay -->
+            <div id="gameOverOverlay" class="overlay-text hidden">
+                <p class="text-3xl font-bold text-red-500 mb-4 animate-pulse-slow">GAME OVER</p>
+                <p class="text-xl mb-2">YOUR SCORE:</p>
+                <p id="finalScore" class="text-5xl font-bold mb-4 text-green-300">0</p>
+                <p id="highScoreDisplay" class="text-lg mb-2 text-yellow-300">BEST: 0</p>
+                <p id="unlockMessage" class="text-sm mb-6 text-cyan-300 hidden"></p>
+                <button id="restartButton" class="game-button">
+                    TRY AGAIN
+                </button>
+                <button id="skinsButtonGameOver" class="game-button mt-4">
+                    SKINS
+                </button>
+            </div>
+
+            <!-- Skins Selection Overlay -->
+            <div id="skinsOverlay" class="overlay-text hidden">
+                <p class="text-2xl mb-6">SELECT YOUR BIRD</p>
+                <div id="skinsContainer" class="skins-container">
+                    <!-- Skins will be dynamically generated here -->
+                </div>
+                <button id="closeSkins" class="game-button mt-6">
+                    BACK
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Flap Button -->
+        <button id="flapButton" class="game-button mt-6 w-48 md:hidden">
+            FLY (Flap)
+        </button>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <p class="text-sm text-gray-400 mt-4 text-center px-4">
+                🎮 Controls: SPACE or CLICK to flap | 🎨 Unlock skins by reaching score milestones!
+            </p>
+        </div>
+    </div>
+
+    <!-- Game Script -->
+    <script src="game.js"></script>
+</body>
+</html>
+
