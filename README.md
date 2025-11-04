@@ -1,4 +1,4 @@
-# 🐦 Flappy Bird - Classic Game
+# 🐦 Flappy Bird - Rahmat Edition
 
 A complete, feature-rich Flappy Bird clone built with vanilla JavaScript, HTML5 Canvas, and CSS. This game includes sound effects, unlockable skins, localStorage persistence, and optimized performance.
 
